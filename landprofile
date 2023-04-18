@@ -1,0 +1,191 @@
+import 'package:farm/location.dart';
+import 'package:flutter/material.dart';
+
+// enum ProfiletypeEnum{ profile1 ,profile2,profile3}
+
+class Mylandprofile extends StatefulWidget {
+  const Mylandprofile({Key? key}) : super(key: key);
+
+  @override
+  State<Mylandprofile> createState() => _MylandprofileState();
+
+}
+// List<bool> _checked = [false, false, false];
+class _MylandprofileState extends State<Mylandprofile> {
+  // int _value = 1;
+  // ProfiletypeEnum? _profiletypeEnum;
+  late String _selectedValue="a";
+  List<String> _options = ['Option 1', 'Option 2', 'Option 3'];
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Land profile', style: TextStyle(
+          fontSize: 24,
+          fontWeight: FontWeight.w800,
+          color: Colors.white,
+        ),),
+        backgroundColor: Colors.green,
+      ),
+      body: Column(
+          mainAxisSize: MainAxisSize.max,
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Row(
+              mainAxisSize: MainAxisSize.max,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                SizedBox(
+                  height: 15,
+                ),
+                Text(
+                  'Enter Land details',
+                  style: TextStyle(
+                    fontFamily: 'Poppins',
+                    fontSize: 24,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+              ],
+            ),
+            // Divider(),
+            // SizedBox(
+            //   height: 10.0,
+            // ),
+            //
+            //     Expanded(
+            //       child:
+            //         RadioListTile<ProfiletypeEnum>(
+            //             contentPadding: EdgeInsets.all(0.0),
+            //             dense: true,
+            //             value: ProfiletypeEnum.profile1,
+            //             groupValue: _profiletypeEnum,
+            //             title: Text(ProfiletypeEnum.profile1.name),
+            //             tileColor: Colors.deepPurple.shade100,
+            //             onChanged: (value){
+            //           setState(() {
+            //             _profiletypeEnum = value;
+            //           });
+            //         }),),
+            // Divider(),
+            //         SizedBox(width: 20.0,),
+            //        // Text("profile 1"),
+            //
+            //
+            //     Expanded(
+            //       child:
+            //         RadioListTile<ProfiletypeEnum>(
+            //           contentPadding: EdgeInsets.all(0.0),
+            //             dense: true,
+            //             value: ProfiletypeEnum.profile2,
+            //             groupValue: _profiletypeEnum,
+            //             title: Text(ProfiletypeEnum.profile2.name),
+            //             tileColor: Colors.deepPurple.shade100,
+            //             onChanged: (value){
+            //
+            //           setState(() {
+            //             _profiletypeEnum = value;
+            //           });
+            //         }),),
+            //         Divider(),
+            //         //SizedBox(width: 5.0,),
+            //         // Text("profile 2"),
+            //
+            //
+            //     Expanded(
+            //       child:
+            //         RadioListTile<ProfiletypeEnum>(
+            //
+            //             contentPadding: EdgeInsets.all(0.0),
+            //             dense: true,
+            //             value: ProfiletypeEnum.profile3,
+            //             groupValue: _profiletypeEnum,
+            //             title: Text(ProfiletypeEnum.profile3.name),
+            //             tileColor: Colors.deepPurple.shade100,
+            //
+            //             onChanged: (value){
+            //           setState(() {
+            //             _profiletypeEnum = value;
+            //           });
+            //         }),),
+            for (String option in _options) ...[
+              ListTile(
+                title: Text(option),
+                leading: Radio(
+                  value: option,
+                  groupValue: _selectedValue,
+                  onChanged: (value) {
+                    setState(() {
+                      _selectedValue = value!;
+                    });
+                  },
+                ),
+              ),
+              Divider(),
+            ],
+            // Display a button to navigate to the selected screen
+            ElevatedButton(
+              onPressed: _selectedValue != null
+                  ? () {
+                // Navigate to the selected screen
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) =>MyLocation(),
+                  ),
+                );
+              }
+                  : null,
+              child: Text('Add Location'),
+            ),
+
+            SizedBox(
+              height: 15.0,
+            ),
+               // Row(
+               //   mainAxisAlignment: MainAxisAlignment.center,
+               //   mainAxisSize: MainAxisSize.max,
+               //   children: [
+               //     ElevatedButton(onPressed: (){
+               //       Navigator.pushNamed(context, 'location');
+               //     }, child: Text("Add Location"))
+               //   ],
+               //
+               // ),
+            SizedBox(
+              height: 15.0,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              mainAxisSize: MainAxisSize.max,
+              children: [
+                ElevatedButton(onPressed: (){
+
+
+                }, child: Text("New profile")),
+                ElevatedButton(onPressed: (){}, child: Text("Delete profile ")),
+              ],
+
+            ),
+            SizedBox(
+              height: 15.0,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              mainAxisSize: MainAxisSize.max,
+              children: [
+                ElevatedButton(onPressed: (){}, child: Text("Save"))
+              ],
+
+            ),
+               // SizedBox(width: 5.0,),
+                //Text("profile 3"),
+
+
+
+          ]
+      ),
+    );
+  }
+}
