@@ -1,4 +1,8 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:pin_code_fields/pin_code_fields.dart';
+import 'package:image_picker/image_picker.dart';
 
 class MyBuyer extends StatefulWidget {
   const MyBuyer({Key? key}) : super(key: key);
@@ -8,6 +12,8 @@ class MyBuyer extends StatefulWidget {
 }
 
 class _MyBuyerState extends State<MyBuyer> {
+  late PickedFile _imageFile;
+  final ImagePicker _picker = ImagePicker();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -15,113 +21,116 @@ class _MyBuyerState extends State<MyBuyer> {
       body:  ListView(
           children: [
             Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            mainAxisSize: MainAxisSize.max,
-            children: [
-              Center(
-                child: Stack(
-                    children:[
-                      Container(
-                        width: 130,
-                        height: 130,
-                        decoration: BoxDecoration(
-                            border: Border.all(width: 4, color: Colors.white),
-                            boxShadow: [
-                              BoxShadow(
-                                  spreadRadius: 2,
-                                  blurRadius: 10,
-                                  color: Colors.black.withOpacity(0.1)
-                              )
-                            ],
-                            shape: BoxShape.circle,
-                            image: DecorationImage(
-                                fit: BoxFit.cover,
-                                image: AssetImage('assets/images/img.png')
-                            )
-                        ),
-                        // child: CircleAvatar(
-                        //   child: Image.asset('assets/images/img.png'),
-                        //
-                        // ),
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              mainAxisSize: MainAxisSize.max,
+              children: [
+                ImageProfile(),
+                ImageProfile(),
 
-                      ),
-                      Positioned(
-                          bottom:0,
-                          right: 0,
-
-                          child: Container(
-                            height: 40,
-                            width: 40,
-                            decoration: BoxDecoration(
-                                shape: BoxShape.circle,
-                                border: Border.all(
-                                  width: 4,
-                                  color: Colors.white,
-                                ),
-                                color: Colors.blue
-
-                            ),
-                            child: Icon(
-                              Icons.edit,
-                              color: Colors.white,
-                            ),
-                          ))
-                    ]
-                ),
-              ),
-              Center(
-                child: Stack(
-                    children:[
-                      Container(
-                        width: 130,
-                        height: 130,
-                        decoration: BoxDecoration(
-                            border: Border.all(width: 4, color: Colors.white),
-                            boxShadow: [
-                              BoxShadow(
-                                  spreadRadius: 2,
-                                  blurRadius: 10,
-                                  color: Colors.black.withOpacity(0.1)
-                              )
-                            ],
-                            shape: BoxShape.circle,
-                            image: DecorationImage(
-                                fit: BoxFit.cover,
-                                image: AssetImage('assets/images/img.png')
-                            )
-                        ),
-                        // child: CircleAvatar(
-                        //   child: Image.asset('assets/images/img.png'),
-                        //
-                        // ),
-
-                      ),
-                      Positioned(
-                          bottom:0,
-                          right: 0,
-
-                          child: Container(
-                            height: 40,
-                            width: 40,
-                            decoration: BoxDecoration(
-                                shape: BoxShape.circle,
-                                border: Border.all(
-                                  width: 4,
-                                  color: Colors.white,
-                                ),
-                                color: Colors.blue
-
-                            ),
-                            child: Icon(
-                              Icons.edit,
-                              color: Colors.white,
-                            ),
-                          ))
-                    ]
-                ),
-              ),
-            ],
-          ),
+                // Center(
+                //   child: Stack(
+                //       children:[
+                //         Container(
+                //           width: 130,
+                //           height: 130,
+                //           decoration: BoxDecoration(
+                //               border: Border.all(width: 4, color: Colors.white),
+                //               boxShadow: [
+                //                 BoxShadow(
+                //                     spreadRadius: 2,
+                //                     blurRadius: 10,
+                //                     color: Colors.black.withOpacity(0.1)
+                //                 )
+                //               ],
+                //               shape: BoxShape.circle,
+                //               image: DecorationImage(
+                //                   fit: BoxFit.cover,
+                //                   image: AssetImage('assets/images/img.png')
+                //               )
+                //           ),
+                //           // child: CircleAvatar(
+                //           //   child: Image.asset('assets/images/img.png'),
+                //           //
+                //           // ),
+                //
+                //         ),
+                //         Positioned(
+                //             bottom:0,
+                //             right: 0,
+                //
+                //             child: Container(
+                //               height: 40,
+                //               width: 40,
+                //               decoration: BoxDecoration(
+                //                   shape: BoxShape.circle,
+                //                   border: Border.all(
+                //                     width: 4,
+                //                     color: Colors.white,
+                //                   ),
+                //                   color: Colors.blue
+                //
+                //               ),
+                //               child: Icon(
+                //                 Icons.edit,
+                //                 color: Colors.white,
+                //               ),
+                //             ))
+                //       ]
+                //   ),
+                // ),
+                // Center(
+                //   child: Stack(
+                //       children:[
+                //         Container(
+                //           width: 130,
+                //           height: 130,
+                //           decoration: BoxDecoration(
+                //               border: Border.all(width: 4, color: Colors.white),
+                //               boxShadow: [
+                //                 BoxShadow(
+                //                     spreadRadius: 2,
+                //                     blurRadius: 10,
+                //                     color: Colors.black.withOpacity(0.1)
+                //                 )
+                //               ],
+                //               shape: BoxShape.circle,
+                //               image: DecorationImage(
+                //                   fit: BoxFit.cover,
+                //                   image: AssetImage('assets/images/img.png')
+                //               )
+                //           ),
+                //           // child: CircleAvatar(
+                //           //   child: Image.asset('assets/images/img.png'),
+                //           //
+                //           // ),
+                //
+                //         ),
+                //         Positioned(
+                //             bottom:0,
+                //             right: 0,
+                //
+                //             child: Container(
+                //               height: 40,
+                //               width: 40,
+                //               decoration: BoxDecoration(
+                //                   shape: BoxShape.circle,
+                //                   border: Border.all(
+                //                     width: 4,
+                //                     color: Colors.white,
+                //                   ),
+                //                   color: Colors.blue
+                //
+                //               ),
+                //               child: Icon(
+                //                 Icons.edit,
+                //                 color: Colors.white,
+                //               ),
+                //             ))
+                //       ]
+                //   ),
+                // ),
+              ],
+            ),
             SizedBox(
               height: 15,
             ),
@@ -291,50 +300,53 @@ class _MyBuyerState extends State<MyBuyer> {
             SizedBox(
               height: 15,
             ),
-            Stack(
-                children:[
-                  Align(
-                    alignment:  Alignment(0, 0),
-                    child: TextField(
-
-                      decoration: InputDecoration(
-                        border: OutlineInputBorder(
-                            borderSide:  BorderSide(
-                              color: Color(0xff655DBB) ,
-                            )
-                        ),
-                        focusedBorder: OutlineInputBorder(
-                            borderSide:  BorderSide(
-                              color: Color(0xff3E54AC),
-                              width: 2,
-                            )
-                        ),
-                        labelText: 'Pin',
-                        helperText: 'Enter pin ',
-                      ),
-                    ),
-                  ),]
+            Text('Enter  your pin  ', style: TextStyle(
+                fontSize: 20
+            ),),
+            SizedBox(
+                height: 10
             ),
+
+            PinCodeTextField(appContext: context, length: 6, onChanged: (pin) {
+              // Handle Pin Code changes
+              print("Pin Code changed to: $pin");
+            },
+              pinTheme: PinTheme(
+                  shape: PinCodeFieldShape.box,
+                  borderRadius: BorderRadius.circular(5.0),
+                  inactiveColor: Colors.blue.shade100
+              ),
+              onCompleted: (v){
+                print("Completed");
+              },),
+
             SizedBox(
               height: 15,
             ),
-            TextField(
-              decoration: InputDecoration(
-                border: OutlineInputBorder(
-                    borderSide:  BorderSide(
-                      color: Color(0xff655DBB) ,
-                    )
-                ),
-                focusedBorder: OutlineInputBorder(
-                    borderSide:  BorderSide(
-                      color: Color(0xff3E54AC),
-                      width: 2,
-                    )
-                ),
-                labelText: 'Re-type Pin',
-                helperText: 'Enter again pin',
-              ),
+            Text('Rewrite  your pin  ', style: TextStyle(
+                fontSize: 20
+            ),),
+            SizedBox(
+                height: 10
             ),
+
+            SizedBox(
+                height: 10
+            ),
+
+            PinCodeTextField(appContext: context, length: 6, onChanged: (pin) {
+              // Handle Pin Code changes
+              print("Pin Code changed to: $pin");
+            },
+              pinTheme: PinTheme(
+                  shape: PinCodeFieldShape.box,
+                  borderRadius: BorderRadius.circular(5.0),
+                  inactiveColor: Colors.blue.shade100
+              ),
+              onCompleted: (v){
+                print("Completed");
+              },),
+
             SizedBox(
               height: 15,
             ),
@@ -362,6 +374,82 @@ class _MyBuyerState extends State<MyBuyer> {
           ]
       ),
 
+    );}
+    Widget ImageProfile(){
+    return Stack(
+      children:<Widget> [
+        CircleAvatar(
+          radius: 70.0,
+          backgroundImage: AssetImage("assets/images/pfimage.jpg") ,
+        ),
+        Positioned(
+          bottom: 20.0,
+            right: 20.0,
+            child: InkWell(
+              onTap: (){
+               showModalBottomSheet(context: context,
+                   builder: ((builder)=>bottomSheet()) ,);
+              },
+              child: Icon(
+                Icons.camera_alt,
+                color: Colors.teal,
+                size: 28.0,
+              ),
+            ))
+
+      ],
     );
+
+    }
+    Widget bottomSheet(){
+    return Container(
+      height: 100.0,
+      width: MediaQuery.of(context).size.width,
+      margin: EdgeInsets.symmetric(
+        horizontal: 20,
+        vertical :20
+      ),
+      child: Column(
+        children: [
+          Text('Choose profile photo', style: TextStyle(
+            fontSize: 20,
+          ),),
+          SizedBox(
+            height: 20,
+          ),
+          Row( mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+             ElevatedButton.icon(
+               onPressed: () {
+                 takePhoto(ImageSource.camera);
+               },
+               icon: Icon(Icons.camera),
+               label: Text('Camera'),
+
+             ),
+              ElevatedButton.icon(
+                onPressed: () {
+                  takePhoto(ImageSource.gallery);
+                },
+                icon: Icon(Icons.image),
+                label: Text('Gallery'),
+
+              )
+            ],
+          )
+        ],
+      ),
+    );
+    }
+    void takePhoto(ImageSource source) async{
+    final pickedFile =await _picker.getImage(
+      source: source,
+    );
+    setState(() {
+      _imageFile =pickedFile!;
+    });
+
+    }
   }
-}
+
+
