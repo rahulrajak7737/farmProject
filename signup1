@@ -1,0 +1,669 @@
+import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:pin_code_fields/pin_code_fields.dart';
+// import 'package:country_code_picker/country_code_picker.dart';
+class MySignup extends StatefulWidget {
+  const MySignup({Key? key}) : super(key: key);
+
+  @override
+  State<MySignup> createState() => _MySignupState();
+}
+
+class _MySignupState extends State<MySignup> {
+  final TextEditingController phoneController = TextEditingController();
+  TextEditingController dateController = TextEditingController();
+  final String requirednumber = '123456';
+  late PickedFile _imageFile;
+  final ImagePicker _picker = ImagePicker();
+  late DateTime selectedDate;
+  final _formKey = GlobalKey<FormState>();
+  final firstNameEditingController = new TextEditingController();
+  final emailEditingController = new TextEditingController();
+  final mobileEditingController = new TextEditingController();
+  final locationEditingController = new TextEditingController();
+  final passwordEditingController = new TextEditingController();
+  final confirmpasswordEditingController = new TextEditingController();
+
+  // Country
+  @override
+  void initState() {
+    super.initState();
+
+
+    dateController.text = "";
+  }
+
+  Widget build(BuildContext context) {
+    final firstNamefield = TextFormField(
+      autofocus: false,
+      controller: firstNameEditingController,
+      keyboardType: TextInputType.name,
+      validator: (value) {
+
+      },
+      onSaved: (value) {
+        firstNameEditingController.text = value!;
+      },
+      textInputAction: TextInputAction.next,
+      decoration: InputDecoration(
+          prefixIcon: Icon(Icons.account_circle),
+          contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
+          hintText: 'User Name',
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10),
+
+          )
+      ),
+    );
+    final emailfield = TextFormField(
+      autofocus: false,
+      controller: emailEditingController,
+      keyboardType: TextInputType.emailAddress,
+      validator: (value) {
+
+      },
+      onSaved: (value) {
+        emailEditingController.text = value!;
+      },
+      textInputAction: TextInputAction.next,
+      decoration: InputDecoration(
+          prefixIcon: Icon(Icons.mail),
+          contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
+          hintText: 'Email',
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10),
+
+          )
+      ),
+    );
+    final mobilefield = TextFormField(
+      autofocus: false,
+      controller: mobileEditingController,
+      keyboardType: TextInputType.emailAddress,
+      validator: (value) {
+
+      },
+      onSaved: (value) {
+        mobileEditingController.text = value!;
+      },
+      textInputAction: TextInputAction.next,
+      decoration: InputDecoration(
+          prefixIcon: Icon(Icons.mobile_friendly),
+          contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
+          hintText: 'Mobile',
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10),
+
+          )
+      ),
+    );
+    final locationfield = TextFormField(
+      autofocus: false,
+      controller: locationEditingController,
+      keyboardType: TextInputType.emailAddress,
+      validator: (value) {
+
+      },
+      onSaved: (value) {
+        locationEditingController.text = value!;
+      },
+      textInputAction: TextInputAction.next,
+      decoration: InputDecoration(
+          prefixIcon: Icon(Icons.location_on),
+          contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
+          hintText: 'Location',
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10),
+
+          )
+      ),
+    );
+    final passwordfield = TextFormField(
+      autofocus: false,
+      obscureText: true,
+      controller: passwordEditingController,
+
+      validator: (value) {
+
+      },
+      onSaved: (value) {
+        passwordEditingController.text = value!;
+      },
+      textInputAction: TextInputAction.next,
+      decoration: InputDecoration(
+          prefixIcon: Icon(Icons.vpn_key),
+          contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
+          hintText: 'Password',
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10),
+
+          )
+      ),
+    );
+    final confirmpasswordfield = TextFormField(
+      autofocus: false,
+      controller: confirmpasswordEditingController,
+
+      validator: (value) {
+
+      },
+      onSaved: (value) {
+        confirmpasswordEditingController.text = value!;
+      },
+      textInputAction: TextInputAction.done,
+      decoration: InputDecoration(
+          prefixIcon: Icon(Icons.vpn_key),
+          contentPadding: EdgeInsets.fromLTRB(20, 15, 20, 15),
+          hintText: 'Confirm Password',
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(10),
+
+          )
+      ),
+    );
+    final signUpbutton = Material(
+
+      elevation: 5,
+      borderRadius: BorderRadius.circular(30),
+      color: Colors.redAccent,
+      child: MaterialButton(
+        padding: EdgeInsets.fromLTRB(20, 15, 20, 15),
+        minWidth: MediaQuery.of(context).size.width,
+        onPressed: (){
+
+
+        },
+        child: Text(
+          'Sign Up' ,
+          textAlign: TextAlign.center,
+          style: TextStyle(
+              fontSize: 20,
+              color: Colors.white,
+              fontWeight: FontWeight.bold
+          ),
+        ),
+      ),
+    );
+    return Scaffold(
+        backgroundColor: Color(0xffECF2FF),
+        appBar: AppBar(
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+          leading: IconButton(
+            icon: Icon(Icons.arrow_back,color: Colors.red,),
+            onPressed: (){
+              Navigator.pushNamed(context, 'role');
+            },
+          ),
+        ),
+        body: Center(
+          child: SingleChildScrollView(
+            child: Container(
+              color: Color(0xffECF2FF),
+              child: Padding(
+                padding: const EdgeInsets.all(36),
+                child: Form(
+                  key: _formKey,
+                  child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: <Widget>[
+
+                        ImageProfile(),
+                        SizedBox(
+                          height: 30,
+                        ),
+                        firstNamefield,
+                        SizedBox(
+                          height: 25,
+                        ),
+                        emailfield,
+                        SizedBox(
+                          height: 25,
+                        ),
+                        mobilefield,
+                        SizedBox(
+                          height: 25,
+                        ),
+                        locationfield,
+                        SizedBox(
+                          height: 25,
+                        ),
+                        passwordfield,
+                        SizedBox(
+                          height: 25,
+                        ),
+                        confirmpasswordfield,
+                        SizedBox(
+                          height: 25,
+                        ),
+                        signUpbutton,
+                      ]
+
+
+                  ),
+                ),
+              ),
+            ),
+          ),
+        )
+
+
+    );
+  }
+
+//     return Scaffold(
+//       backgroundColor: Color(0xffECF2FF),
+//       body:  Container(
+//         width: MediaQuery.of(context).size.width*0.9,
+//         child: Padding(
+//           padding: const EdgeInsets.only(left: 30.0),
+//           child: ListView(
+//               children: [
+//                 Row(
+//                   mainAxisAlignment: MainAxisAlignment.center,
+//                   mainAxisSize: MainAxisSize.max,
+//                   children: [
+//                     ImageProfile()
+//                     //           Center(
+//                     //             child: Stack(
+//                     //               children:[
+//                     //       Container(
+//                     //       width: 150,
+//                     //         height: 150,
+//                     //         decoration: BoxDecoration(
+//                     //               border: Border.all(width: 4, color: Colors.white),
+//                     //               boxShadow: [
+//                     //                 BoxShadow(
+//                     //                     spreadRadius: 2,
+//                     //                     blurRadius: 10,
+//                     //                     color: Colors.black.withOpacity(0.1)
+//                     //                 )
+//                     //               ],
+//                     //               shape: BoxShape.circle,
+//                     //               image: DecorationImage(
+//                     //                   fit: BoxFit.cover,
+//                     //                   image: AssetImage('assets/images/img.png')
+//                     //               )
+//                     //         ),
+//                     //         // child: CircleAvatar(
+//                     //         //   child: Image.asset('assets/images/img.png'),
+//                     //         //
+//                     //         // ),
+//                     //
+//                     //       ),
+//                     //                 Positioned(
+//                     //                     bottom:0,
+//                     //                     right: 0,
+//                     //
+//                     //                     child: Container(
+//                     //                       height: 40,
+//                     //                       width: 40,
+//                     //                       decoration: BoxDecoration(
+//                     //                         shape: BoxShape.circle,
+//                     //                         border: Border.all(
+//                     //                           width: 4,
+//                     //                           color: Colors.white,
+//                     //                         ),
+//                     //                         color: Colors.blue
+//                     //
+//                     //                       ),
+//                     //                       child: Icon(
+//                     //                         Icons.edit,
+//                     //                         color: Colors.white,
+//                     //                       ),
+//                     //                     ))
+//                     // ]
+//                     //             ),
+//                     //           ),
+//                   ],
+//                 ),
+//                 SizedBox(
+//                   height: 15,
+//                 ),
+//                 TextField(
+//                   decoration: InputDecoration(
+//                     border: OutlineInputBorder(
+//                         borderSide:  BorderSide(
+//                           color: Color(0xff655DBB) ,
+//                         )
+//                     ),
+//                     focusedBorder: OutlineInputBorder(
+//                         borderSide:  BorderSide(
+//                           color: Color(0xff3E54AC),
+//                           width: 2,
+//                         )
+//                     ),
+//                     labelText: 'Name',
+//                     helperText: 'Name cannot be empty',
+//
+//
+//                   ),
+//                 ),
+//                 SizedBox(
+//                   height: 15,
+//                 ),
+//                 TextField(
+//                   controller:dateController,
+//                   decoration: InputDecoration(
+//                     border: OutlineInputBorder(
+//                         borderSide:  BorderSide(
+//                           color: Color(0xff655DBB) ,
+//                         )
+//                     ),
+//                     focusedBorder: OutlineInputBorder(
+//                         borderSide:  BorderSide(
+//                           color: Color(0xff3E54AC),
+//                           width: 2,
+//                         )
+//                     ),
+//                     suffixIcon:
+//
+//                     Icon(
+//                       Icons.calendar_today,
+//                       color: Color(0xff3E54AC),
+//                     ),
+//
+//                     labelText: 'Date of Birth',
+//                     helperText: 'Enter date',
+//
+//
+//                   ),
+//                   readOnly: true,
+//                   onTap: () async {
+//                     DateTime? pickeddate= await showDatePicker(
+//                       context: context,
+//                       initialDate: DateTime.now(),
+//                       firstDate: DateTime(1930),
+//                       lastDate: DateTime(2023),);
+//                     if(pickeddate!=null){
+//                       setState(() {
+//                         dateController.text=pickeddate.toString();
+//                       });
+//                     }
+//                   },
+//
+//
+//                 ),
+//                 SizedBox(
+//                   height: 15,
+//                 ),
+//                 TextField(
+//                   decoration: InputDecoration(
+//                     border: OutlineInputBorder(
+//                         borderSide:  BorderSide(
+//                           color: Color(0xff655DBB) ,
+//                         )
+//                     ),
+//                     focusedBorder: OutlineInputBorder(
+//                         borderSide:  BorderSide(
+//                           color: Color(0xff3E54AC),
+//                           width: 2,
+//                         )
+//                     ),
+//                     labelText: 'Email',
+//                     helperText: 'Write Email',
+//
+//
+//                   ),
+//                 ),
+//                 SizedBox(
+//                   height: 15,
+//                 ),
+//                 TextField(
+//                   controller: phoneController,
+//                   decoration: InputDecoration(
+//                     border: OutlineInputBorder(
+//                         borderSide:  BorderSide(
+//                           color: Color(0xff655DBB) ,
+//                         )
+//                     ),
+//                     focusedBorder: OutlineInputBorder(
+//                         borderSide:  BorderSide(
+//                           color: Color(0xff3E54AC),
+//                           width: 2,
+//                         )
+//                     ),
+//                     labelText: 'Mobile',
+//                     helperText: 'Mobile No.',
+//                     // prefixIcon: Container(
+//                     //   padding:  const EdgeInsets.all(8.0),
+//                     //   child: InkWell(
+//                     //     onTap: (){},
+//                     //     child: Text('s'),
+//                     //   ),
+//                     // )
+//
+//
+//                   ),
+//                 ),
+//                 SizedBox(
+//                   height: 15,
+//                 ),
+//                 TextField(
+//                   decoration: InputDecoration(
+//                     border: OutlineInputBorder(
+//                         borderSide:  BorderSide(
+//                           color: Color(0xff655DBB) ,
+//                         )
+//                     ),
+//                     focusedBorder: OutlineInputBorder(
+//                         borderSide:  BorderSide(
+//                           color: Color(0xff3E54AC),
+//                           width: 2,
+//                         )
+//                     ),
+//                     // suffixIcon: Icon(
+//                     //   Icons.location_off_sharp,
+//                     //   color: Color(0xff3E54AC),
+//                     // ),
+//                     labelText: 'Location',
+//                     helperText: 'Your place',
+//
+//
+//                   ),
+//                 ),
+//                 SizedBox(
+//                   height: 15,
+//                 ),
+//                 Text('Enter  your pin  ', style: TextStyle(
+//                     fontSize: 20
+//                 ),),
+//                 SizedBox(
+//                     height: 10
+//                 ),
+//
+//                 Container(
+//                   width: MediaQuery.of(context).size.width*0.541,
+//                   child: PinCodeTextField(
+//                     appContext: context,
+//                     length: 6,
+//                     onChanged: (pin) {
+//                     // Handle Pin Code changes
+//                     print("Pin Code changed to: $pin");
+//                   },
+//                     pinTheme: PinTheme(
+//                         shape: PinCodeFieldShape.box,
+//                         borderRadius: BorderRadius.circular(5.0),
+//                         inactiveColor: Colors.blue.shade100
+//                     ),
+//                     onCompleted: (v){
+//                       print("Completed");
+//                     },),
+//                 ),
+//                 // Stack(
+//                 //   children:[
+//                 //     Align(
+//                 //       alignment:  Alignment(0, 0),
+//                 //       child: TextField(
+//                 //
+//                 //       decoration: InputDecoration(
+//                 //         border: OutlineInputBorder(
+//                 //             borderSide:  BorderSide(
+//                 //               color: Color(0xff655DBB) ,
+//                 //             )
+//                 //         ),
+//                 //         focusedBorder: OutlineInputBorder(
+//                 //             borderSide:  BorderSide(
+//                 //               color: Color(0xff3E54AC),
+//                 //               width: 2,
+//                 //             )
+//                 //         ),
+//                 //         labelText: 'Pin',
+//                 //         helperText: 'Enter pin ',
+//                 //       ),
+//                 //   ),
+//                 //     ),]
+//                 // ),
+//                 SizedBox(
+//                   height: 15,
+//                 ),
+//                 // TextField(
+//                 // decoration: InputDecoration(
+//                 // border: OutlineInputBorder(
+//                 // borderSide:  BorderSide(
+//                 // color: Color(0xff655DBB) ,
+//                 // )
+//                 // ),
+//                 // focusedBorder: OutlineInputBorder(
+//                 // borderSide:  BorderSide(
+//                 // color: Color(0xff3E54AC),
+//                 // width: 2,
+//                 // )
+//                 // ),
+//                 //   labelText: 'Re-type Pin',
+//                 //   helperText: 'Enter again pin',
+//                 // ),
+//                 // ),
+//                 Text('Rewrite  your pin  ', style: TextStyle(
+//                     fontSize: 20
+//                 ),),
+//                 SizedBox(
+//                     height: 10
+//                 ),
+//
+//                 PinCodeTextField(appContext: context, length: 6, onChanged: (pin) {
+//                   // Handle Pin Code changes
+//                   print("Pin Code changed to: $pin");
+//                 },
+//                   pinTheme: PinTheme(
+//                       shape: PinCodeFieldShape.box,
+//                       borderRadius: BorderRadius.circular(5.0),
+//                       inactiveColor: Colors.blue.shade100
+//                   ),
+//                   onCompleted: (v){
+//                     print("Completed");
+//                   },),
+//                 SizedBox(
+//                   height: 15,
+//                 ),
+//                 Row(
+//                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+//                   children: [
+//                     ElevatedButton(onPressed: (){
+//                       Navigator.pushNamed(context, 'signup');
+//                     }, child:
+//                     Text('Reset',
+//                       style: TextStyle(
+//                         fontSize: 18,
+//                         fontWeight: FontWeight.w600,
+//
+//                       ),)),
+//                     ElevatedButton(onPressed: (){
+//                       Navigator.pushNamed(context, 'authentication');
+//                     }, child:
+//                     Text('Submit',
+//                       style: TextStyle(
+//                         fontSize: 18,
+//                         fontWeight: FontWeight.w600,
+//                       ),
+//                     ),),
+//                   ],
+//                 )
+//               ]
+//           ),
+//         ),
+//       ),
+//
+//     );
+//   }
+  Widget ImageProfile() {
+    return Stack(
+      children: <Widget>[
+        CircleAvatar(
+          radius: 70.0,
+          backgroundImage:AssetImage(
+               "assets/images/f12.jpg") ,
+        ),
+        Positioned(
+            bottom: 20.0,
+            right: 20.0,
+            child: InkWell(
+              onTap: () {
+                showModalBottomSheet(context: context,
+                  builder: ((builder) => bottomSheet()),);
+              },
+              child: Icon(
+                Icons.camera_alt,
+                color: Colors.teal,
+                size: 28.0,
+              ),
+            ))
+
+      ],
+    );
+  }
+
+  Widget bottomSheet() {
+    return Container(
+      height: 100.0,
+      width: MediaQuery
+          .of(context)
+          .size
+          .width,
+      margin: EdgeInsets.symmetric(
+          horizontal: 20,
+          vertical: 20
+      ),
+      child: Column(
+        children: [
+          Text('Choose profile photo', style: TextStyle(
+            fontSize: 20,
+          ),),
+          SizedBox(
+            height: 20,
+          ),
+          Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              ElevatedButton.icon(
+                onPressed: () {
+                  takePhoto(ImageSource.camera);
+                },
+                icon: Icon(Icons.camera),
+                label: Text('Camera'),
+
+              ),
+              ElevatedButton.icon(
+                onPressed: () {
+                  takePhoto(ImageSource.gallery);
+                },
+                icon: Icon(Icons.image),
+                label: Text('Gallery'),
+
+              )
+            ],
+          )
+        ],
+      ),
+    );
+  }
+
+  void takePhoto(ImageSource source) async {
+    final pickedFile = await _picker.getImage(
+      source: source,
+    );
+    setState(() {
+      _imageFile = pickedFile!;
+    });
+  }
+}
